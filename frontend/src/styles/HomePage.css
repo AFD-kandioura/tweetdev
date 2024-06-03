@@ -1,6 +1,7 @@
 
 .homepage_container{
     width: 65vw;
+    alignItems: "center",
 }
 
 .homepage_container a{

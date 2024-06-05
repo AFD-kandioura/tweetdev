@@ -37,7 +37,7 @@ RUN npm install
 # Copier tout le code source (pour permettre à Nodemon de surveiller les modifications)
 COPY . .
 
-# Exposer le port utilisé par l'API
+# Exposer le port utilisé par l'Api
 EXPOSE 3000
 
 # Commande pour démarrer l'application avec Nodemon via npm

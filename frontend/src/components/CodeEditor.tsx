@@ -13,7 +13,7 @@ const CodeEditor = () => {
   const onMount = (editor) => {
     editorRef.current = editor;
     editor.focus();
-  };
+  };//j'ai push avc le mauvais compte deso
 
   const onSelect = (language) => {
     setLanguage(language);

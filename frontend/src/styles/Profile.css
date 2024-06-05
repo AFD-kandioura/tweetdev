@@ -1,4 +1,8 @@
 .profile-card{
-    border: 1px solid black;
-    padding: 15px 500px;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.profile-container{
+    width: 1200px;
 }

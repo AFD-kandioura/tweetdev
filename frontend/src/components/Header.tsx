@@ -15,6 +15,7 @@ function Header() {
             <nav className="header_navbar">
                 <ul className="header_nav-menu">
 
+                <li className="header_nav-item"><a href="/feed" className="header_nav-link">Feed</a></li>
                     {!isLoggedIn && (
                 <>
                   <li className="header_nav-item"><a href="/codeEditor" className="header_nav-link">Editeur</a></li>

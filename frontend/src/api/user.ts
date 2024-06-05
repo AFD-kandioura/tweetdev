@@ -26,3 +26,22 @@ export const fetchSelfInfo = async (token: string) => {
     throw error;
   }
 };
+
+export const updateUser = async (token: string, userInfo: any): Promise<any> => {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/user/`,
+      userInfo, 
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user info:", error);
+    throw error;
+  }
+};

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { fetchSelfInfo} from '../api/user';
 import { getSession } from '../services/sessionService';
-import {convertTimestampToMonthYear} from '../utils/utils';
+import {convertTimestampToMonthYear, defaultUser} from '../utils/utils';
 import '../styles/Profile.css';
+import ModalProfileEdit from '../components/ModalProfileEdit';
 
 function Profile() {
-    const [selfInfo, setSelfInfo] = useState<any>(null);
+  const [selfInfo, setSelfInfo] = useState<UserResponse>(defaultUser);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,11 +27,9 @@ function Profile() {
         fetchData();
       }, []);
 
-      useEffect(() => {
-        console.log(selfInfo);
-      }, [selfInfo]);
+
     return (
-        <div>
+        <div className='profile-container'>
             {!selfInfo && ( <>Loading...</>)}
             
             {selfInfo && (
@@ -40,6 +39,7 @@ function Profile() {
                 <p> {selfInfo.aboutMe}</p>
                 <p>Joined {convertTimestampToMonthYear(selfInfo.joinDate)}</p>
                 <p>{selfInfo.follow.length} followers</p>
+                <ModalProfileEdit selfInfo={selfInfo}></ModalProfileEdit>
                 </div>
                 </>
             )}

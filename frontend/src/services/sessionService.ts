@@ -6,7 +6,7 @@ export const setSession = (token:string) => {
 
 export const getSession = (): string => {
   const token = localStorage.getItem(SESSION_STORAGE_KEY);
-  return token || '';
+  return token as string;
 };
 
 

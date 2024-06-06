@@ -1,33 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import "../styles/TweetDev.css"
-function TweetDev() {
+import Post from '../interfaces/Post';
+function TweetDev({key, postInfo}) {
+        const [input, setInput] = useState('');
+        
+        const [output, setOutput] = useState('');
+        
+        const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+            setInput(event.target.value);
+        };
+        useEffect(() => {
+            console.log(postInfo)
+            console.log(postInfo.authorName)
+
+          }, []);
+        const run = () => {
+            setOutput("run");
+        }
     return (
         <div className="tweetDev-container">
             <div className='up'>
-                <div className='author'>Author:</div>
-                <div className='title'>Title:</div>
+                <div className='author'>{postInfo.authorName}</div>
+                <div className='title'>{postInfo.title}</div>
             </div>
             <div className='code'>
-                <p> # Get all characters relying on default offsets letters[::] letters[:] # Get every other character from 0 to the end letters[::2] # Get every other character from 1 to the end letters[1::2]'abcd'</p>
+                <pre> {postInfo.description}</pre>
             </div>
             <div className='details'>
                 <div className='engagement'>
 
-                    <div className='likes'>Likes:</div>
-                    <div className='comments'>Comments:</div>
+                    <div className='likes'>{postInfo.like.length} Likes</div>
+                    <div className='comments'>{postInfo.comments.length} Comments</div>
                 </div>
-                <div className='langages'>
-                    <div className='Python'>Python</div>
-                    <div className='Python'>Python</div>
-                    <div className='Python'>Python</div>
+                <div className='specs'>
+                    <div className='format'>{postInfo.format}</div>
+                    <div className='language'>{postInfo.language}</div>
                 </div>
-                <div className='down'>
-                    <div className='input'>input</div>
-                    <div className='result'>result</div>
-                    <div className='run'>run</div>
-                </div>
+             
             </div>
+            <div className='down'>
+                    <div className='input'>
+                    <textarea 
+                        value={input}
+                        onChange={handleChange} id="input" name="input" rows={5} cols={50} placeholder='Enter input here'>
+
+</textarea>
+                    </div>
+                    <div className='run'><button onClick={()=>run()} className='run-button'>RUN</button></div>
+                    <div className='result'>
+                    
+                    <textarea 
+                        value={output} readOnly id="result" name="result" rows={5} cols={50} placeholder='Result'>
+</textarea></div>
+                </div>
         </div>
     );
 }

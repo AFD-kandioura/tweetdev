@@ -34,7 +34,7 @@ const userShemma = new Schema<User>({
     },
     aboutMe: {
         type: Schema.Types.String,
-        required: true
+        required: false
     },
     joinDate : {
         type: Schema.Types.Date,

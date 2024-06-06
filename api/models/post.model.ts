@@ -21,11 +21,6 @@ const postShemma = new Schema<Post>({
         ref: "Comment",
         required: true
     }],
-    whoValidates: [{
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
-    }],
     creationDate: {
         type: Schema.Types.Date,
         required: true
@@ -34,9 +29,24 @@ const postShemma = new Schema<Post>({
         type: Schema.Types.String,
         required: true
     },
-    image_proof: {
+    type: {
+        type: Schema.Types.String,
+        enum: ['tweet', 'tweetdev'],
+        required: true
+    },
+    authorName: {
         type: Schema.Types.String,
         required: true
+    },
+    language: {
+        type: Schema.Types.String,
+        enum: ['python', 'javascript'],
+        required: false
+    },
+    format: {
+        type: Schema.Types.String,
+        enum: ['text', 'image'],
+        required: false
     }
 }, {
     versionKey: false,
@@ -49,10 +59,12 @@ export interface Post{
     description: string
     like: User[]
     comments: Comment[]
-    whoValidates: User[]
     creationDate : Date
     userId: string
-    image_proof: string
+    authorName: string
+    type: 'tweet' | 'tweetdev'
+    language: 'python' | 'javascript'
+    format: 'text' | 'image'
 }
 
 

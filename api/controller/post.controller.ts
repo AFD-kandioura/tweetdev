@@ -20,8 +20,7 @@ export class PostController {
 
     readonly paramsNewPost = {
         "title" : "string",
-        "description" : "string",
-        "image_proof" : "string"
+        "description" : "string"
     }
 
     newPost = async (req: Request, res: Response): Promise<void> => {
@@ -31,10 +30,12 @@ export class PostController {
             description: req.body.description,
             like: [],
             comments: [],
-            whoValidates: [],
             creationDate: new Date(),
             userId : req.user?._id,
-            image_proof: req.body.image_proof
+            authorName : req.user?.username,
+            type: req.body.type,
+            language: req.body.language,
+            format: req.body.format
         })
 
         try{
@@ -177,20 +178,7 @@ export class PostController {
         }
     }
     
-    getValidator = async (req:Request, res:Response):Promise<void> => {
-        try{
-            const post = await PostModel.findById(req.query.id)
-            if(!post){
-                res.status(404).json({"messgae" : "Post not found"})
-                return 
-            }
-            res.status(200).json((await post.populate("whoValidates")).whoValidates)
-            return 
-        }catch(err){
-            res.status(400).json({"message": "This is not a Post Id"})
-            return
-        }
-    }
+
 
     getAllPosts = async (req:Request, res:Response): Promise<void> => {
         const all_post = await PostModel.find()
@@ -204,7 +192,6 @@ export class PostController {
         router.get('/', checkUserToken(), checkUserRole(RolesEnums.guest), checkQuery(this.queryPostId), this.getOnePost.bind(this))
         router.get('/all', checkUserToken(), this.getAllPosts.bind(this))
         router.get('/like', checkUserToken(),checkQuery(this.queryPostId), this.nbrLike.bind(this))
-        router.get('/validate', checkUserToken(), checkQuery(this.queryPostId), this.getValidator.bind(this))
         router.post('/', express.json(), checkUserToken(), checkUserRole(RolesEnums.guest), checkBody(this.paramsNewPost), this.newPost.bind(this))
         router.post('/comment', express.json(), checkUserToken(), checkBody(this.paramsComment), this.addComment.bind(this))
         router.patch('/like', express.json(), checkUserToken(), checkBody(this.paramsLike), this.likePost.bind(this))

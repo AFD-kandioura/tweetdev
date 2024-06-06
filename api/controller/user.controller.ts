@@ -276,13 +276,7 @@ export class UserController {
                 res.status(500).end()
                 return 
             }       
-            // Check that the user hasn't already validated the post
-            if(post.whoValidates.some(validator => String(validator) === String(req.user?._id))){
-                res.status(406).json({"message" : "You have already validated this post"})
-                return
-            }
             
-            post.whoValidates.push(req.user)
             post.save()
             
 

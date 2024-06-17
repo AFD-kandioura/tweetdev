@@ -14,8 +14,8 @@ RUN npm install
 COPY . .
 
 # Expose port 4000 to the outside world
-EXPOSE 4000
+EXPOSE 3000
 
-RUN npm run build 
+RUN npm run build
 
 CMD npm start

@@ -19,7 +19,7 @@ const Output: React.FC<OutputProps> = ({ editorRef, language }) => {
 
         try {
             setIsLoading(true);
-            const response = await axios.post("http://localhost:3000/run", {
+            const response = await axios.post("http://localhost:3000/execute", {
                 code: sourceCode,
                 language,
             });
@@ -33,6 +33,7 @@ const Output: React.FC<OutputProps> = ({ editorRef, language }) => {
                 description: error.message || "Unable to run code",
                 status: "error",
                 duration: 6000,
+                isClosable: true,
             });
         } finally {
             setIsLoading(false);
